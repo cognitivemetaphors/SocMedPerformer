@@ -2,11 +2,12 @@
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
     <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="out_ValidationCount" Type="OutArgument(x:Decimal)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1316,1227</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1302,1321</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="34">
@@ -85,18 +86,10 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="383,965" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="383,1156" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="s:SocMedFollowing" Name="socialMediaFollowingIn">
-        <Variable.Default>
-          <mva:VisualBasicValue x:TypeArguments="s:SocMedFollowing" ExpressionText="new SocMedFollowing" />
-        </Variable.Default>
-      </Variable>
-      <Variable x:TypeArguments="s:SocMedFollowing" Name="socialMedaFollowingOut">
-        <Variable.Default>
-          <mva:VisualBasicValue x:TypeArguments="s:SocMedFollowing" ExpressionText="new SocMedFollowing" />
-        </Variable.Default>
-      </Variable>
+      <Variable x:TypeArguments="s:SocMedFollowing" Default="[new SocMedFollowing]" Name="socialMediaFollowingIn" />
+      <Variable x:TypeArguments="s:SocMedFollowing" Default="[new SocMedFollowing]" Name="socialMedaFollowingOut" />
       <Variable x:TypeArguments="s:SocMedSites" Name="socMedSite" />
       <Variable x:TypeArguments="x:String" Name="followersText" />
       <Variable x:TypeArguments="x:Decimal" Name="followersDecimal" />
@@ -108,10 +101,10 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:KillProcess AppliesTo="{x:Null}" ContinueOnError="{x:Null}" Process="{x:Null}" DisplayName="Kill Process" sap:VirtualizedContainerService.HintSize="341,132" sap2010:WorkflowViewState.IdRef="KillProcess_1" ProcessName="chrome" />
-    <ui:RetryScope sap2010:Annotation.AnnotationText="Pull Handle and Social Media Site from transaction and then pull followers. Store followers in UiPath data service.&#xA;&#xA;" DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="341,139" sap2010:WorkflowViewState.IdRef="RetryScope_1">
+    <ui:RetryScope sap2010:Annotation.AnnotationText="Pull Handle and Social Media Site from transaction and then pull followers. Store followers in UiPath data service.&#xA;&#xA;" DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="341,168" sap2010:WorkflowViewState.IdRef="RetryScope_1">
       <ui:RetryScope.ActivityBody>
         <ActivityAction>
-          <Sequence DisplayName="Action" sap:VirtualizedContainerService.HintSize="716,2434" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <Sequence DisplayName="Action" sap:VirtualizedContainerService.HintSize="539,229" sap2010:WorkflowViewState.IdRef="Sequence_4">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="baseWebsite" />
             </Sequence.Variables>
@@ -275,7 +268,7 @@
                           <uix:NGetText.Target>
                             <uix:TargetAnchorable BrowserURL="https://www.instagram.com/alyssaggarcia/" DesignTimeRectangle="1195, 221, 105, 21" ElementType="Text" FriendlyName="'1,290 followers'" FullSelectorArgument="&lt;webctrl tag='A' aaname='* followers' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='A' type='' /&gt;" ImageBase64="" InformativeScreenshot="ffe7a41958fb84364f50aca98a2e0464.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='alyssa garcia (@alyssaggarcia) • Instagram photos and videos' /&gt;" SearchSteps="Selector, FuzzySelector">
                               <uix:TargetAnchorable.Anchors>
-                                <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                                <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
                                   <uix:Target DesignTimeRectangle="1095, 168, 154, 32" FriendlyName="'alyssaggarcia'" FullSelectorArgument="&lt;webctrl tag='H2' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='H2' type='' aaname='*' /&gt;" ImageBase64="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" SearchSteps="Selector, FuzzySelector" />
                                 </scg:List>
                               </uix:TargetAnchorable.Anchors>
@@ -350,7 +343,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:RetryScope>
-    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="341,160" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="341,191" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
       <ui:MultipleAssign.AssignOperations>
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
@@ -377,9 +370,18 @@
               <InArgument x:TypeArguments="s1:Nullable(s:SocMedSites)">[socMedSite]</InArgument>
             </ui:AssignOperation.Value>
           </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_8">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:Decimal">[out_ValidationCount]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:Decimal">[followersDecimal]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
         </scg:List>
       </ui:MultipleAssign.AssignOperations>
     </ui:MultipleAssign>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="341,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;ProcessXAML outValidationCount:&quot;+ out_ValidationCount.ToString]" />
     <uda:CreateEntityRecord x:TypeArguments="s:SocMedFollowing" ContinueOnError="False" DisplayName="Create Entity Record" ExpansionDepth="2" sap:VirtualizedContainerService.HintSize="341,220" sap2010:WorkflowViewState.IdRef="CreateEntityRecord`1_2" InputEntity="[socialMediaFollowingIn]" OutputEntity="[socialMedaFollowingOut]" TimeoutInMs="30000" />
   </Sequence>
 </Activity>

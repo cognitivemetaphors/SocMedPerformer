@@ -6,7 +6,9 @@
     "UiPath.DataService.Activities": "[21.1.2]",
     "UiPath.Excel.Activities": "[2.10.4]",
     "UiPath.System.Activities": "[21.4.0]",
-    "UiPath.UIAutomation.Activities": "[21.4.3]"
+    "UiPath.Testing.Activities": "[1.4.0-preview]",
+    "UiPath.UIAutomation.Activities": "[21.4.3]",
+    "UiPath.WebAPI.Activities": "[1.8.0-preview]"
   },
   "webServices": [],
   "entitiesStores": [
@@ -14,12 +16,12 @@
       "serviceDocument": ".entities/EntitiesStore.json",
       "tenantName": "CognitiveMetaphors",
       "namespace": "SocMedBotPerformer",
-      "uniqueReference": "QdduFipVR90pmEgfPvG0DQjOyY1SR4Zqtc0F0GzbtZI="
+      "uniqueReference": "MUnpSlEI+QKmgw1b2JYOM8gpyAzhnUaK6gvnJuA8XZ4="
     }
   ],
   "schemaVersion": "4.0",
   "studioVersion": "21.4.3.0",
-  "projectVersion": "1.0.2",
+  "projectVersion": "1.0.82686936",
   "runtimeOptions": {
     "autoDispose": false,
     "isPausable": true,
@@ -43,7 +45,18 @@
     "processOptions": {
       "ignoredFiles": []
     },
-    "fileInfoCollection": [],
+    "fileInfoCollection": [
+      {
+        "editingStatus": "Publishable",
+        "testCaseId": "f7b38ae0-72d8-4844-96c3-b008397264c4",
+        "fileName": "Tests\\InstagramFollowers_TestCase_alyssaggarcia.xaml"
+      },
+      {
+        "editingStatus": "Publishable",
+        "testCaseId": "3471fcbc-4a97-41e4-a6e6-27f2b53ae75a",
+        "fileName": "Tests\\InstagramFollowers_TestCase_uipathglobal.xaml"
+      }
+    ],
     "modernBehavior": true
   },
   "expressionLanguage": "VisualBasic",
