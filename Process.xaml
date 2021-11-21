@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:SocMedBotPerformer;assembly=DataService.SocMedBotPerformer" xmlns:s1="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:uda="clr-namespace:UiPath.DataService.Activities;assembly=UiPath.DataService.Activities.Core" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:SocMedBotPerformer;assembly=DataService.SocMedBotPerformer" xmlns:s1="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System" xmlns:uda="clr-namespace:UiPath.DataService.Activities;assembly=UiPath.DataService.Activities.Core" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
     <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
@@ -7,10 +7,10 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1302,1321</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1279,1221</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="34">
+    <scg:List x:TypeArguments="x:String" Capacity="36">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -45,10 +45,12 @@
       <x:String>SocMedBotPerformer</x:String>
       <x:String>UiPath.UIAutomationNext.Activities</x:String>
       <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="35">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="34">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -83,7 +85,6 @@
       <AssemblyReference>DataService.SocMedBotPerformer</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Platform</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="383,1156" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -93,6 +94,7 @@
       <Variable x:TypeArguments="s:SocMedSites" Name="socMedSite" />
       <Variable x:TypeArguments="x:String" Name="followersText" />
       <Variable x:TypeArguments="x:Decimal" Name="followersDecimal" />
+      <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="followersTextRegex" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -104,7 +106,7 @@
     <ui:RetryScope sap2010:Annotation.AnnotationText="Pull Handle and Social Media Site from transaction and then pull followers. Store followers in UiPath data service.&#xA;&#xA;" DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="341,168" sap2010:WorkflowViewState.IdRef="RetryScope_1">
       <ui:RetryScope.ActivityBody>
         <ActivityAction>
-          <Sequence DisplayName="Action" sap:VirtualizedContainerService.HintSize="539,229" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <Sequence DisplayName="Action" sap:VirtualizedContainerService.HintSize="562,1774" sap2010:WorkflowViewState.IdRef="Sequence_4">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="baseWebsite" />
             </Sequence.Variables>
@@ -114,13 +116,13 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[in_TransactionItem.SpecificContent(&quot;SocialMediaSite&quot;).ToString]" sap:VirtualizedContainerService.HintSize="497,137" sap2010:WorkflowViewState.IdRef="Switch`1_1">
-              <Sequence x:Key="Instagram" sap:VirtualizedContainerService.HintSize="634,2239" sap2010:WorkflowViewState.IdRef="Sequence_5">
+              <Sequence x:Key="Instagram" sap:VirtualizedContainerService.HintSize="480,1539" sap2010:WorkflowViewState.IdRef="Sequence_5">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="592,129" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
+                <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="438,129" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
                   <ui:MultipleAssign.AssignOperations>
                     <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
                       <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
@@ -142,7 +144,7 @@
                     </scg:List>
                   </ui:MultipleAssign.AssignOperations>
                 </ui:MultipleAssign>
-                <ui:CommentOut DisplayName="Comment Out - Classic Selectors" sap:VirtualizedContainerService.HintSize="592,1030" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+                <ui:CommentOut DisplayName="Comment Out - Classic Selectors" sap:VirtualizedContainerService.HintSize="438,51" sap2010:WorkflowViewState.IdRef="CommentOut_1">
                   <ui:CommentOut.Body>
                     <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="556,952" sap2010:WorkflowViewState.IdRef="Sequence_6">
                       <sap:WorkflowViewStateService.ViewState>
@@ -210,7 +212,7 @@
                                       <ActivityAction.Argument>
                                         <DelegateInArgument x:TypeArguments="s1:Exception" Name="exception" />
                                       </ActivityAction.Argument>
-                                      <Sequence sap:VirtualizedContainerService.HintSize="376,385" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                                      <Sequence sap:VirtualizedContainerService.HintSize="376,386" sap2010:WorkflowViewState.IdRef="Sequence_2">
                                         <sap:WorkflowViewStateService.ViewState>
                                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -246,38 +248,75 @@
                   </ui:CommentOut.Body>
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                       <x:Boolean x:Key="IsPinned">False</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                 </ui:CommentOut>
-                <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Browser Chrome: alyssa garcia (@alyssaggarcia) • Instagram photos and videos" sap:VirtualizedContainerService.HintSize="592,577" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="Simulate" Version="V1">
+                <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Browser Chrome: alyssa garcia (@alyssaggarcia) • Instagram photos and videos" sap:VirtualizedContainerService.HintSize="438,768" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="Simulate" Version="V1">
                   <uix:NApplicationCard.Body>
                     <ActivityAction x:TypeArguments="x:Object">
                       <ActivityAction.Argument>
                         <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
                       </ActivityAction.Argument>
-                      <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,321" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                      <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,552" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="x:String" Name="followersTitle" />
+                        </Sequence.Variables>
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
                         <ui:MaximizeWindow Window="{x:Null}" DisplayName="Maximize Window" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="MaximizeWindow_2" />
-                        <uix:NGetText DisplayName="Get Text 'alyssaggarcia'" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NGetText_1">
-                          <uix:NGetText.Target>
-                            <uix:TargetAnchorable BrowserURL="https://www.instagram.com/alyssaggarcia/" DesignTimeRectangle="1195, 221, 105, 21" ElementType="Text" FriendlyName="'1,290 followers'" FullSelectorArgument="&lt;webctrl tag='A' aaname='* followers' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='A' type='' /&gt;" ImageBase64="" InformativeScreenshot="ffe7a41958fb84364f50aca98a2e0464.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='alyssa garcia (@alyssaggarcia) • Instagram photos and videos' /&gt;" SearchSteps="Selector, FuzzySelector">
-                              <uix:TargetAnchorable.Anchors>
-                                <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
-                                  <uix:Target DesignTimeRectangle="1095, 168, 154, 32" FriendlyName="'alyssaggarcia'" FullSelectorArgument="&lt;webctrl tag='H2' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='H2' type='' aaname='*' /&gt;" ImageBase64="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" SearchSteps="Selector, FuzzySelector" />
-                                </scg:List>
-                              </uix:TargetAnchorable.Anchors>
-                            </uix:TargetAnchorable>
-                          </uix:NGetText.Target>
-                          <uix:NGetText.Text>
-                            <OutArgument x:TypeArguments="x:String">[followersText]</OutArgument>
-                          </uix:NGetText.Text>
-                        </uix:NGetText>
+                        <ui:CommentOut sap2010:Annotation.AnnotationText="This was the old way. It doesn't work if you have more than 9999 followers&#xA;" DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="334,123" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+                          <ui:CommentOut.Body>
+                            <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="376,258" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <uix:NGetText DisplayName="Get Text 'alyssaggarcia'" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NGetText_1">
+                                <uix:NGetText.Target>
+                                  <uix:TargetAnchorable BrowserURL="https://www.instagram.com/alyssaggarcia/" DesignTimeRectangle="1195, 221, 105, 21" ElementType="Text" FriendlyName="'1,290 followers'" FullSelectorArgument="&lt;webctrl tag='A' aaname='* followers' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='A' type='' /&gt;" ImageBase64="" InformativeScreenshot="ffe7a41958fb84364f50aca98a2e0464.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='alyssa garcia (@alyssaggarcia) • Instagram photos and videos' /&gt;" SearchSteps="Selector, FuzzySelector">
+                                    <uix:TargetAnchorable.Anchors>
+                                      <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                        <uix:Target DesignTimeRectangle="1095, 168, 154, 32" FriendlyName="'alyssaggarcia'" FullSelectorArgument="&lt;webctrl tag='H2' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='H2' type='' aaname='*' /&gt;" ImageBase64="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" SearchSteps="Selector, FuzzySelector" />
+                                      </scg:List>
+                                    </uix:TargetAnchorable.Anchors>
+                                  </uix:TargetAnchorable>
+                                </uix:NGetText.Target>
+                                <uix:NGetText.Text>
+                                  <OutArgument x:TypeArguments="x:String">[followersText]</OutArgument>
+                                </uix:NGetText.Text>
+                              </uix:NGetText>
+                            </Sequence>
+                          </ui:CommentOut.Body>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </ui:CommentOut>
+                        <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="outerhtml" DisplayName="Get Outerhtml Attribute From Followers" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="GetAttribute_1">
+                          <ui:GetAttribute.Result>
+                            <OutArgument x:TypeArguments="x:String">[followersTitle]</OutArgument>
+                          </ui:GetAttribute.Result>
+                          <ui:GetAttribute.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="d2940b2d-f7b1-4dda-96f1-57675c511a57" InformativeScreenshot="30b67caebf4782c2367c826eaf6cf71e" Selector="&lt;webctrl tag='A' href='/*/followers/' aaname='*followers' /&gt;">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
+                              <ui:Target.WaitForReady>
+                                <InArgument x:TypeArguments="ui:WaitForReady" />
+                              </ui:Target.WaitForReady>
+                            </ui:Target>
+                          </ui:GetAttribute.Target>
+                        </ui:GetAttribute>
+                        <ui:Matches BuilderPattern=".*title=&quot;(.*)&quot;.*" DisplayName="Matches - Parse followers from outerthml title attribute" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="Matches_1" Input="[followersTitle]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;.*title=\&quot;(.*)\&quot;.*&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern=".*title=&quot;(.*)&quot;.*" RegexOption="IgnoreCase" Result="[followersTextRegex]" />
                       </Sequence>
                     </ActivityAction>
                   </uix:NApplicationCard.Body>
@@ -285,7 +324,7 @@
                     <uix:TargetApp Area="-8, -8, 2498, 1456" BrowserType="Chrome" IconBase64="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" InformativeScreenshot="d60f6996b0dc6052759f09a6fd890cee.png" Selector="&lt;html app='chrome.exe' title='alyssa garcia (@alyssaggarcia) • Instagram photos and videos'/&gt;" Url="[baseWebsite + &quot;/&quot; + in_TransactionItem.SpecificContent(&quot;Handle&quot;).ToString]" />
                   </uix:NApplicationCard.TargetApp>
                 </uix:NApplicationCard>
-                <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="592,291" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+                <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,379" sap2010:WorkflowViewState.IdRef="TryCatch_2">
                   <TryCatch.Try>
                     <Sequence sap:VirtualizedContainerService.HintSize="304,152" sap2010:WorkflowViewState.IdRef="Sequence_9">
                       <sap:WorkflowViewStateService.ViewState>
@@ -298,16 +337,16 @@
                           <OutArgument x:TypeArguments="x:Decimal">[followersDecimal]</OutArgument>
                         </Assign.To>
                         <Assign.Value>
-                          <InArgument x:TypeArguments="x:Decimal">[Convert.ToDecimal(followersText.replace(" followers",""))]</InArgument>
+                          <InArgument x:TypeArguments="x:Decimal">[Convert.ToDecimal(followersTextRegex(0).Groups(1).ToString)]</InArgument>
                         </Assign.Value>
                       </Assign>
                     </Sequence>
                   </TryCatch.Try>
                   <TryCatch.Catches>
-                    <Catch x:TypeArguments="s1:Exception" sap:VirtualizedContainerService.HintSize="400,129" sap2010:WorkflowViewState.IdRef="Catch`1_3">
+                    <Catch x:TypeArguments="s1:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_3">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                           <x:Boolean x:Key="IsPinned">False</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
@@ -382,6 +421,6 @@
       </ui:MultipleAssign.AssignOperations>
     </ui:MultipleAssign>
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="341,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;ProcessXAML outValidationCount:&quot;+ out_ValidationCount.ToString]" />
-    <uda:CreateEntityRecord x:TypeArguments="s:SocMedFollowing" ContinueOnError="False" DisplayName="Create Entity Record" ExpansionDepth="2" sap:VirtualizedContainerService.HintSize="341,220" sap2010:WorkflowViewState.IdRef="CreateEntityRecord`1_2" InputEntity="[socialMediaFollowingIn]" OutputEntity="[socialMedaFollowingOut]" TimeoutInMs="30000" />
+    <uda:CreateEntityRecord x:TypeArguments="s:SocMedFollowing" ContinueOnError="False" DisplayName="Create Entity Record" ExpansionDepth="2" sap:VirtualizedContainerService.HintSize="341,220" sap2010:WorkflowViewState.IdRef="CreateEntityRecord`1_4" InputEntity="[socialMediaFollowingIn]" OutputEntity="[socialMedaFollowingOut]" TimeoutInMs="30000" />
   </Sequence>
 </Activity>

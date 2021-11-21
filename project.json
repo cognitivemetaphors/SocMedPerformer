@@ -3,7 +3,7 @@
   "description": "Robotic Enterprise Framework - SocMedBotPerformer grabs transactions from the queue and grabs the follower counts from different Social Media Sites for the given handle.\r\n",
   "main": "Main.xaml",
   "dependencies": {
-    "UiPath.DataService.Activities": "[21.1.2]",
+    "UiPath.DataService.Activities": "[21.10.0]",
     "UiPath.Excel.Activities": "[2.10.4]",
     "UiPath.System.Activities": "[21.4.0]",
     "UiPath.Testing.Activities": "[1.4.0-preview]",
@@ -16,7 +16,7 @@
       "serviceDocument": ".entities/EntitiesStore.json",
       "tenantName": "CognitiveMetaphors",
       "namespace": "SocMedBotPerformer",
-      "uniqueReference": "MUnpSlEI+QKmgw1b2JYOM8gpyAzhnUaK6gvnJuA8XZ4="
+      "uniqueReference": "H/UmII3PBVnGEpb7v0GZi5eVz3HYmQahfZt9ghvXJSM="
     }
   ],
   "schemaVersion": "4.0",
@@ -25,6 +25,7 @@
   "runtimeOptions": {
     "autoDispose": false,
     "isPausable": true,
+    "isAttended": false,
     "requiresUserInteraction": true,
     "supportsPersistence": false,
     "excludedLoggedData": [
@@ -33,7 +34,8 @@
     ],
     "executionType": "Workflow",
     "readyForPiP": false,
-    "startsInPiP": false
+    "startsInPiP": false,
+    "mustRestoreAllDependencies": false
   },
   "designOptions": {
     "projectProfile": "Developement",
